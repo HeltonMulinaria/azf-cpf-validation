@@ -1,3 +1,5 @@
+using CpfValidationApp.Validators;
+using FluentValidation;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,5 +12,7 @@ builder.ConfigureFunctionsWebApplication();
 builder.Services
     .AddApplicationInsightsTelemetryWorkerService()
     .ConfigureFunctionsApplicationInsights();
+
+builder.Services.AddValidatorsFromAssemblyContaining<CpfValidatorRequestValidator>();
 
 builder.Build().Run();
